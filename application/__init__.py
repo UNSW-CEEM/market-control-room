@@ -5,4 +5,3 @@ app = Flask(__name__, static_url_path='')
 def root():
 	return app.send_static_file('monitor.html')
 
-app.run()
