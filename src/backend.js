@@ -31,5 +31,10 @@ export default {
   fetchSecureResource () {
     return $axios.get(`secure-resource/zzz`)
       .then(response => response.data)
+  },
+
+  fetchSimData (id) {
+    return $axios.get(`simdata/`+id)
+      .then(response => response.data)
   }
 }

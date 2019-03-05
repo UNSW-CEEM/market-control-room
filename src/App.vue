@@ -10,6 +10,7 @@
       <div class="nav">
         <router-link to="/">Home</router-link>
         <router-link to="/api">API Sample</router-link>
+        <router-link :to="{ name: 'summary', params: { id: '123' } }" >Summary</router-link>
         <sim-search v-bind:simulations="simulations"/>
       </div>
       <div class="content">

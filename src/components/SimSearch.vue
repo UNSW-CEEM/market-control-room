@@ -3,7 +3,7 @@
     <h4>Simulations</h4>
     <div class="simlist">
       <div  v-for="sim in simulations">
-        <span class="simlink">{{sim.label}}</span>
+        <router-link class="simlink" :to="{ name: 'summary', params: { id: sim.id } }" >{{sim.label}}</router-link>
       </div>
     </div>
   </div>
