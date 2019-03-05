@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 
 import './filters'
+import 'nes.css/css/nes.css'
 
 Vue.config.productionTip = false
 
