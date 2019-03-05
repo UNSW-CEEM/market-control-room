@@ -2,15 +2,15 @@
 
   <div id="app">
     <div class="top">
-      <div class="title"> Market Control Room</div>
-      <div class="ceem"> UNSW CEEM </div>
+      <div class="title"> Deep Learning Logbook</div>
+      <div class="ceem"> UNSW CEEM <i class="nes-icon github is-small"></i></div>
     </div>
 
     <div class="main">
       <div class="nav">
         <router-link to="/">Home</router-link>
         <router-link to="/api">API Sample</router-link>
-        <sim-search/>
+        <sim-search v-bind:simulations="simulations"/>
       </div>
       <div class="content">
         <router-view/>
@@ -78,6 +78,13 @@ $nes-black: #212529;
 
   .ceem{
     margin: 0 1vw 0 1vw;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    i{
+      margin: 0 0 0 1vw;
+    }
   }
 }
 
@@ -94,7 +101,7 @@ $nes-black: #212529;
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:center;
+    justify-content:flex-start;
     border-right:4px solid $nes-black;
     height:95vh;
     

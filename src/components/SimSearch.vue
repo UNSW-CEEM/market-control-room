@@ -1,6 +1,11 @@
 <template>
-  <div class="nes-container is-dark">
-    <h1>Sim Search</h1>
+  <div class="search">
+    <h4>Simulations</h4>
+    <div class="simlist">
+      <div  v-for="sim in simulations">
+        <span class="simlink">{{sim.label}}</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -8,12 +13,25 @@
 export default {
   name: 'SimSearch',
   props: {
-    msg: String
+    simulations: Array
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.search{
+  margin-top:3vh;
+  
+  .simlist{
+    height:80vh;
+    overflow:scroll;
+    width:100%;
+    .simlink{
+      font-size:0.6em;
+    } 
+  }
 
+  
+}
 </style>
