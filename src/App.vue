@@ -1,18 +1,52 @@
 <template>
 
   <div id="app">
-    <div class="top nes-container">Top</div>
-
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/api">API Sample</router-link>
+    <div class="top">
+      <div class="title"> Market Control Room</div>
+      <div class="ceem"> UNSW CEEM </div>
     </div>
-    <router-view/>
+
+    <div class="main">
+      <div class="nav">
+        <router-link to="/">Home</router-link>
+        <router-link to="/api">API Sample</router-link>
+        <sim-search/>
+      </div>
+      <div class="content">
+        <router-view/>
+      </div>
+    </div>
   </div>
+
 </template>
+
+<script>
+import SimSearch from '@/components/SimSearch.vue'
+export default {
+  name: 'app',
+  components:{
+    SimSearch
+  },
+  data(){
+    return {
+      simulations:[],
+    }
+  },
+  mounted(){
+    for(var i = 0; i<100; i++){
+      this.simulations.push({
+        id:i,
+        label:'Simulation '+i,
+      })
+    }
+  }
+}
+</script>
+
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+$nes-black: #212529;
 
 #app {
   // font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -30,24 +64,57 @@
 
 .top{
   width:100%;
-}
+  background-color: $nes-black;
+  color:white;
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items: center;
+  height: 5vh;
 
-#nav {
+  .title{
+    margin: 0 1vw 0 1vw;
+  }
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  .ceem{
+    margin: 0 1vw 0 1vw;
   }
 }
-#plus {
-  padding: 0 20px 0 20px;
-  display: inline-block;
-  font-size: 50px;
-  vertical-align: top;
-  line-height: 100px;
+
+.main{
+  width:100%;
+
+  display:flex;
+  flex-direction:row;
+  justify-content:flex-start;
+
+
+  .nav {
+    width:15vw;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    border-right:4px solid $nes-black;
+    height:95vh;
+    
+
+    a {
+      font-weight: bold;
+      color: #2c3e50;
+      &.router-link-exact-active {
+        color: #42b983;
+      }
+    }
+  }
+
+  .content{
+    width:85vw;
+    padding:1vw 0.5vh 1vw 0.5vh;
+  }
+  
 }
+
+
 
 </style>
