@@ -4,7 +4,7 @@ http://flask-restplus.readthedocs.io
 """
 
 from datetime import datetime
-from flask import request
+from flask import request, jsonify
 from flask_restplus import Resource
 
 from .security import require_auth
@@ -27,6 +27,29 @@ class ResourceOne(Resource):
     def post(self, resource_id):
         json_payload = request.json
         return {'timestamp': json_payload}, 201
+
+@api_rest.route('/simdata/<string:resource_id>')
+class SimData(Resource):
+    """ Unsecure Resource Class: Inherit from Resource """
+
+    def get(self, resource_id):
+        
+        data = {
+            'hyperparameters':{
+                'epsilon':1,
+                'gamma':10,
+                'beta':5,
+                'alpha':7,
+                'omega':2.5677778777,
+            }
+        }
+
+        return jsonify(data)
+
+    def post(self, resource_id):
+        json_payload = request.json
+        return {'timestamp': json_payload}, 201
+
 
 
 @api_rest.route('/secure-resource/<string:resource_id>')

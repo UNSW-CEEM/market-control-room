@@ -24,7 +24,7 @@ export default {
   margin-top:3vh;
   
   .simlist{
-    height:80vh;
+    height:85vh;
     overflow:scroll;
     width:100%;
     .simlink{

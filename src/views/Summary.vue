@@ -1,9 +1,15 @@
 <template>
   <div class="summary">
-    <h1>Summary:{{id}}</h1>
+    <div v-if="simulation">
+      <h1>Summary:{{id}}</h1>
+      {{simulation}}
+      <hyperparameters />
+    </div>
     
-    {{simulation}}
-    <hyperparameters />
+    <div v-else class="loading">
+      <h1>LOADING...</h1>
+    </div>
+
   </div>
 </template>
 
@@ -26,17 +32,35 @@ export default {
   components: {
     Hyperparameters
   },
+  methods:{
+    refresh(){
+      this.simulation = null;
+      $backend.fetchSimulation(this.id)
+      .then(responseData => {
+        this.simulation = responseData;
+      }).catch(error => {
+        console.log(error.message)
+      })
+    }
+  },
+  watch:{
+    id(){
+      this.refresh();
+    }
+  },
   mounted(){
-    $backend.fetchResource()
-    .then(responseData => {
-      this.resources.push(responseData)
-    }).catch(error => {
-      this.error = error.message
-    })
+    this.refresh();
   }
 }
 </script>
 
 <style lang="scss">
-
+.loading{
+  height:90vh;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+}
 </style>

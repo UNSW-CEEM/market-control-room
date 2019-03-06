@@ -2,15 +2,14 @@
 
   <div id="app">
     <div class="top">
-      <div class="title"> Deep Learning Logbook</div>
+      <a href="/"><div class="title nes-text is-primary"> Deep Learning Logbook</div></a>
       <div class="ceem"> UNSW CEEM <i class="nes-icon github is-small"></i></div>
     </div>
 
     <div class="main">
       <div class="nav">
-        <router-link to="/">Home</router-link>
-        <router-link to="/api">API Sample</router-link>
-        <router-link :to="{ name: 'summary', params: { id: '123' } }" >Summary</router-link>
+        <!-- <router-link to="/">Home</router-link>
+        <router-link to="/api">API Sample</router-link> -->
         <sim-search v-bind:simulations="simulations"/>
       </div>
       <div class="content">
@@ -73,8 +72,13 @@ $nes-black: #212529;
   align-items: center;
   height: 5vh;
 
+  a:hover{
+    text-decoration: none;
+  }
+
   .title{
     margin: 0 1vw 0 1vw;
+    
   }
 
   .ceem{

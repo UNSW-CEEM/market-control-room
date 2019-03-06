@@ -33,7 +33,7 @@ export default {
       .then(response => response.data)
   },
 
-  fetchSimData (id) {
+  fetchSimulation (id) {
     return $axios.get(`simdata/`+id)
       .then(response => response.data)
   }
