@@ -1,6 +1,6 @@
 <template>
   <div class="nes-container is-dark with-title">
-    <h1>HI helo</h1>
+    <h1>Hyperparameters</h1>
   </div>
 </template>
 
