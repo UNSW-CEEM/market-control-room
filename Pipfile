@@ -13,6 +13,7 @@ pytest = "*"
 pytest-cov = "*"
 requests = "*"
 pendulum = "*"
+dnspython = "*"
 
 [dev-packages]
 pytest = "*"

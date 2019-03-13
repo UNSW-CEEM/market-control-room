@@ -4,7 +4,7 @@
       <h1>Simulation {{id}}</h1>
       <hyperparameters :hyperparameters="simulation.hyperparameters"/>
     </div>
-    
+
     <div v-else class="loading">
       <h1>LOADING...</h1>
     </div>
@@ -20,35 +20,35 @@ import $backend from '../backend'
 
 export default {
   name: 'Summary',
-  props:{
-    id: String,
+  props: {
+    id: String
   },
-  data(){
+  data () {
     return {
-      simulation:null,
+      simulation: null
     }
   },
   components: {
     Hyperparameters
   },
-  methods:{
-    refresh(){
-      this.simulation = null;
+  methods: {
+    refresh () {
+      this.simulation = null
       $backend.fetchSimulation(this.id)
-      .then(responseData => {
-        this.simulation = responseData;
-      }).catch(error => {
-        console.log(error.message)
-      })
+        .then(responseData => {
+          this.simulation = responseData
+        }).catch(error => {
+          console.log(error.message)
+        })
     }
   },
-  watch:{
-    id(){
-      this.refresh();
+  watch: {
+    id () {
+      this.refresh()
     }
   },
-  mounted(){
-    this.refresh();
+  mounted () {
+    this.refresh()
   }
 }
 </script>

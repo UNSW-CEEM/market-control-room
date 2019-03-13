@@ -20,35 +20,26 @@ class SecureResource(Resource):
     method_decorators = [require_auth]
 
 
-@api_rest.route('/resource/<string:resource_id>')
-class ResourceOne(Resource):
-    """ Unsecure Resource Class: Inherit from Resource """
-
-    def get(self, resource_id):
-        timestamp = datetime.utcnow().isoformat()
-        return {'timestamp': timestamp}
-
-    def post(self, resource_id):
-        json_payload = request.json
-        return {'timestamp': json_payload}, 201
 
 @api_rest.route('/simdata/<string:resource_id>')
 class SimData(Resource):
     """ Unsecure Resource Class: Inherit from Resource """
 
     def get(self, resource_id):
-        
-        data = {
-            'hyperparameters':{
-                'epsilon':1,
-                'gamma':10,
-                'beta':5,
-                'alpha':7,
-                'omega':2.5677778777,
-            }
-        }
+        timestamp = datetime.utcnow().isoformat()
+        req = Simulation.objects.get(id=resource_id)
+        return jsonify(req.data)
+        # data = {
+        #     'hyperparameters':{
+        #         'epsilon':1,
+        #         'gamma':10,
+        #         'beta':5,
+        #         'alpha':7,
+        #         'omega':2.5677778777,
+        #     }
+        # }
 
-        return jsonify(data)
+        # return jsonify(data)
 
 @api_rest.route('/simdata/list')
 class SimData(Resource):
@@ -65,7 +56,7 @@ class SimData(Resource):
     """ Unsecure Resource Class: Inherit from Resource """
 
 
-    def post(self, resource_id):
+    def post(self):
         print("POST REQUEST")
         json_payload = request.data
         data = json.loads(request.data)

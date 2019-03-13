@@ -14,24 +14,23 @@
 import $backend from '../backend'
 export default {
   name: 'SimSearch',
-  data() {
+  data () {
     return {
-      simulations:[],
+      simulations: []
     }
   },
-  methods:{
-      refresh(){
-        this.simulation = null;
-        $backend.fetchSimulationList()
+  methods: {
+    refresh () {
+      this.simulation = null
+      $backend.fetchSimulationList()
         .then(responseData => {
-          console.log("Sim List Response:", responseData);
-          this.simulations = responseData;
+          this.simulations = responseData
         }).catch(error => {
           console.log(error.message)
         })
-      }
+    }
   },
-  mounted(){
+  mounted () {
     this.refresh()
   }
 }
@@ -41,14 +40,14 @@ export default {
 <style scoped lang="scss">
 .search{
   margin-top:3vh;
-  
+
   .simlist{
     height:85vh;
     overflow:scroll;
     width:100%;
     .simlink{
       font-size:0.6em;
-    } 
+    }
   }
 
 }

@@ -4,17 +4,17 @@
 
      <table class="nes-table is-bordered is-centered" style="width:100%">
         <tr>
-          
+
           <th>Parameter</th>
           <th>Value</th>
         </tr>
         <tr v-for="(value, key) in hyperparameters">
-          
+
           <td>{{key}}</td>
           <td>{{value}}</td>
         </tr>
-        
-      </table> 
+
+      </table>
   </div>
 </template>
 
@@ -22,7 +22,7 @@
 export default {
   name: 'Hyperparameters',
   props: {
-    hyperparameters:Object,
+    hyperparameters: Object,
     msg: String
   }
 }

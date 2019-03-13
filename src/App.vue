@@ -24,25 +24,24 @@
 import SimSearch from '@/components/SimSearch.vue'
 export default {
   name: 'app',
-  components:{
+  components: {
     SimSearch
   },
-  data(){
+  data () {
     return {
-      simulations:[],
+      simulations: []
     }
   },
-  mounted(){
-    for(var i = 0; i<100; i++){
+  mounted () {
+    for (var i = 0; i < 100; i++) {
       this.simulations.push({
-        id:i,
-        label:'Simulation '+i,
+        id: i,
+        label: 'Simulation ' + i
       })
     }
   }
 }
 </script>
-
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
@@ -80,7 +79,7 @@ $nes-blue: #209cee;
 
   .title{
     margin: 0 1vw 0 1vw;
-    
+
   }
 
   .ceem{
@@ -102,7 +101,6 @@ $nes-blue: #209cee;
   flex-direction:row;
   justify-content:flex-start;
 
-
   .nav {
     width:15vw;
     display:flex;
@@ -111,7 +109,6 @@ $nes-blue: #209cee;
     justify-content:flex-start;
     border-right:4px solid $nes-black;
     height:95vh;
-    
 
     a {
       font-weight: bold;
@@ -126,9 +123,7 @@ $nes-blue: #209cee;
     width:85vw;
     padding:1vw 0.5vh 1vw 0.5vh;
   }
-  
+
 }
-
-
 
 </style>
