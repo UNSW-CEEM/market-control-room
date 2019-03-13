@@ -8,6 +8,11 @@ gunicorn = "==19.7.1"
 flask-restplus = "*"
 python-dotenv = "*"
 flask = "*"
+mongoengine = "*"
+pytest = "*"
+pytest-cov = "*"
+requests = "*"
+pendulum = "*"
 
 [dev-packages]
 pytest = "*"

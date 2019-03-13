@@ -1,9 +1,8 @@
 <template>
   <div class="summary">
     <div v-if="simulation">
-      <h1>Summary:{{id}}</h1>
-      {{simulation}}
-      <hyperparameters />
+      <h1>Simulation {{id}}</h1>
+      <hyperparameters :hyperparameters="simulation.hyperparameters"/>
     </div>
     
     <div v-else class="loading">

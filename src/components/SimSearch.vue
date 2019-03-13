@@ -2,7 +2,7 @@
   <div class="search">
     <h4>Simulations</h4>
     <div class="simlist">
-      <div  v-for="sim in simulations">
+      <div v-for="sim in simulations">
         <router-link class="simlink" :to="{ name: 'summary', params: { id: sim.id } }" >{{sim.label}}</router-link>
       </div>
     </div>
@@ -10,10 +10,29 @@
 </template>
 
 <script>
+
+import $backend from '../backend'
 export default {
   name: 'SimSearch',
-  props: {
-    simulations: Array
+  data() {
+    return {
+      simulations:[],
+    }
+  },
+  methods:{
+      refresh(){
+        this.simulation = null;
+        $backend.fetchSimulationList()
+        .then(responseData => {
+          console.log("Sim List Response:", responseData);
+          this.simulations = responseData;
+        }).catch(error => {
+          console.log(error.message)
+        })
+      }
+  },
+  mounted(){
+    this.refresh()
   }
 }
 </script>
@@ -32,6 +51,5 @@ export default {
     } 
   }
 
-  
 }
 </style>

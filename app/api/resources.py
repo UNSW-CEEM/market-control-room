@@ -9,6 +9,10 @@ from flask_restplus import Resource
 
 from .security import require_auth
 from . import api_rest
+import json
+import pendulum
+
+from app.storage.simulation_data import Simulation
 
 
 class SecureResource(Resource):
@@ -46,9 +50,33 @@ class SimData(Resource):
 
         return jsonify(data)
 
+@api_rest.route('/simdata/list')
+class SimData(Resource):
+    """ Unsecure Resource Class: Inherit from Resource """
+
+    def get(self):
+        req = Simulation.objects()
+        sims = [{'label':s.label, 'id':str(s.id)} for s in req]
+        return jsonify(sims)
+        
+
+@api_rest.route('/simdata')
+class SimData(Resource):
+    """ Unsecure Resource Class: Inherit from Resource """
+
+
     def post(self, resource_id):
-        json_payload = request.json
-        return {'timestamp': json_payload}, 201
+        print("POST REQUEST")
+        json_payload = request.data
+        data = json.loads(request.data)
+        
+        save_request(data)
+        return {'success': 'true'}, 201
+
+def save_request(data):
+        sim = Simulation(data['label'], pendulum.now(), data)
+        sim.save()
+        print("Simulation Saved")
 
 
 

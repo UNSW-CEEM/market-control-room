@@ -48,9 +48,11 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 $nes-black: #212529;
 
+$nes-blue: #209cee;
+
 #app {
   // font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  font-family: 'Press Start 2P', cursive;
+  font-family: 'Press Start 2P', Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

@@ -34,7 +34,11 @@ export default {
   },
 
   fetchSimulation (id) {
-    return $axios.get(`simdata/`+id)
+    return $axios.get(`simdata/` + id)
+      .then(response => response.data)
+  },
+  fetchSimulationList () {
+    return $axios.get(`simdata/list`)
       .then(response => response.data)
   }
 }
