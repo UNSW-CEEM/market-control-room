@@ -57,12 +57,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+$blue-bg: #98cbea;
 .nes-textarea{
     height: 30vh;
 }
 .nes-container{
     margin: 3vh 0 3vh 0;
-    background-color:#98cbea;
+    background-color:$blue-bg;
 }
 .notes-text{
     background-color:white;
