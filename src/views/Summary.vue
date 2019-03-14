@@ -2,7 +2,9 @@
   <div class="summary">
     <div v-if="simulation">
       <h1>Simulation {{id}}</h1>
+      <Notes :notes="simulation.notes" :id="id"/>
       <hyperparameters :hyperparameters="simulation.hyperparameters"/>
+      
     </div>
 
     <div v-else class="loading">
@@ -16,6 +18,7 @@
 // @ is an alias to /src
 
 import Hyperparameters from '@/components/Hyperparameters.vue'
+import Notes from '@/components/Notes.vue'
 import $backend from '../backend'
 
 export default {
@@ -29,7 +32,8 @@ export default {
     }
   },
   components: {
-    Hyperparameters
+    Hyperparameters,
+    Notes
   },
   methods: {
     refresh () {
@@ -49,6 +53,7 @@ export default {
   },
   mounted () {
     this.refresh()
+    
   }
 }
 </script>

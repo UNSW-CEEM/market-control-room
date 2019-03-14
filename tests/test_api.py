@@ -9,7 +9,6 @@ def client():
     return app.test_client()
 
 
-
 def test_resource_one_post(client):
     resp = client.post('/api/simdata', {'thing':1})
     assert resp.status_code == 201
