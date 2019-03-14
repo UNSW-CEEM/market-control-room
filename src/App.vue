@@ -49,7 +49,6 @@ $nes-black: #212529;
 
 $nes-blue: #209cee;
 
-
 #app {
   // font-family: 'Avenir', Helvetica, Arial, sans-serif;
   font-family: 'Press Start 2P', Helvetica, sans-serif;

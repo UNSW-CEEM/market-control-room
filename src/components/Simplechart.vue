@@ -2,7 +2,7 @@
   <div class="nes-container with-title">
     <h3 class="title">Chart: {{timeseries.label}}</h3>
     <highcharts :options="chartOptions"></highcharts>
-     
+
   </div>
 </template>
 
@@ -10,17 +10,17 @@
 export default {
   name: 'Simplechart',
   props: {
-    timeseries:Object,
+    timeseries: Object
   },
-  data() {
+  data () {
     return {
       chartOptions: {
-        title:{
-            text:"",
+        title: {
+          text: ''
         },
         series: [{
-            name:this.timeseries.label,
-            data: this.timeseries.data // sample data
+          name: this.timeseries.label,
+          data: this.timeseries.data // sample data
         }]
       }
     }

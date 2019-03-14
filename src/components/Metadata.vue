@@ -22,7 +22,7 @@
 export default {
   name: 'Metadata',
   props: {
-    metadata: Object,
+    metadata: Object
   }
 }
 </script>

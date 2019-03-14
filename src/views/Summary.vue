@@ -58,7 +58,6 @@ export default {
   },
   mounted () {
     this.refresh()
-    
   }
 }
 </script>
