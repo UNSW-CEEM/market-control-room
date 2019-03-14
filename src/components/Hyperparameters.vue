@@ -1,6 +1,6 @@
 <template>
   <div class="nes-container with-title">
-    <h3 class="title">Hyperparameters</h3>
+    <h3 class="title">Hyperparameters.</h3>
 
      <table class="nes-table is-bordered is-centered" style="width:100%">
         <!-- <tr>
