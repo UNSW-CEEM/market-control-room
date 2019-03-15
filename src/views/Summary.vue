@@ -4,7 +4,7 @@
       <h1>Simulation {{id}}</h1>
       <Notes :notes="simulation.notes" :id="id"/>
       <hyperparameters :hyperparameters="simulation.hyperparameters"/>
-      
+      <bidstack/>
     </div>
 
     <div v-else class="loading">
@@ -19,6 +19,7 @@
 
 import Hyperparameters from '@/components/Hyperparameters.vue'
 import Notes from '@/components/Notes.vue'
+import Bidstack from '@/components/Bidstack.vue'
 import $backend from '../backend'
 
 export default {
