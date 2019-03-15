@@ -2,14 +2,12 @@
   <div class="summary">
     <div v-if="simulation">
       <h1>{{simulation.label}}</h1>
+      <bidstack/>
       <metadata :metadata="simulation.metadata"/>
       <Notes :notes="simulation.notes" :id="id"/>
       <hyperparameters :hyperparameters="simulation.hyperparameters"/>
-<<<<<<< HEAD
-      <bidstack/>
-=======
+      
       <simplechart v-for="(value, key) in simulation.timeseries" :timeseries="value"/>
->>>>>>> deploy
     </div>
 
     <div v-else class="loading">
@@ -46,7 +44,8 @@ export default {
     Hyperparameters,
     Metadata,
     Notes,
-    Simplechart
+    Simplechart,
+    Bidstack
   },
   methods: {
     refresh () {
@@ -71,6 +70,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 .loading{
   height:90vh;
   width:100%;
