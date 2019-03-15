@@ -6,6 +6,9 @@ import store from './store'
 import './filters'
 import 'nes.css/css/nes.css'
 
+
+import HighchartsVue from 'highcharts-vue'
+Vue.use(HighchartsVue)
 Vue.config.productionTip = false
 
 new Vue({

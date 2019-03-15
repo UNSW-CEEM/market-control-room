@@ -121,7 +121,9 @@ $nes-blue: #209cee;
 
   .content{
     width:85vw;
-    padding:1vw 0.5vh 1vw 0.5vh;
+    height:95vh;
+    padding:3vh 3vw 1vh 3vw;
+    overflow:scroll;
   }
 
 }

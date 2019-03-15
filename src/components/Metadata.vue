@@ -1,6 +1,6 @@
 <template>
   <div class="nes-container with-title">
-    <h3 class="title">Hyperparameters.</h3>
+    <h3 class="title">Metadata</h3>
 
      <table class="nes-table is-bordered is-centered" style="width:100%">
         <!-- <tr>
@@ -8,7 +8,7 @@
           <th>Parameter</th>
           <th>Value</th>
         </tr> -->
-        <tr v-for="(value, key) in hyperparameters">
+        <tr v-for="(value, key) in metadata">
 
           <td>{{key}}</td>
           <td>{{value}}</td>
@@ -20,10 +20,9 @@
 
 <script>
 export default {
-  name: 'Hyperparameters',
+  name: 'Metadata',
   props: {
-    hyperparameters: Object,
-    msg: String
+    metadata: Object
   }
 }
 </script>

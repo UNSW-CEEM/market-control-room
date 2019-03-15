@@ -19,50 +19,51 @@ import $backend from '../backend'
 export default {
   name: 'Notes',
   props: {
-    notes:String,
-    id:String,
+    notes: String,
+    id: String
   },
-  data(){
-      return {
-          notes_text:"Sample",
-          mode:"display",
-          is_submitting:false
+  data () {
+    return {
+      notes_text: 'Sample',
+      mode: 'display',
+      is_submitting: false
+    }
+  },
+  methods: {
+    submit_notes () {
+      if (!this.is_submitting) {
+        this.is_submitting = true
+        $backend.postNotes(this.id, this.notes_text)
+          .then(responseData => {
+            console.log('Notes submitted. Response:', responseData)
+            this.mode = 'display'
+            this.is_submitting = false
+          }).catch(error => {
+            console.log('Note submission error: ', error.message)
+          })
       }
+    }
   },
-  methods:{
-      submit_notes(){
-          if(!this.is_submitting){
-            this.is_submitting = true;
-            $backend.postNotes(this.id, this.notes_text)
-            .then(responseData => {
-                console.log("Notes submitted. Response:", responseData)
-                this.mode = 'display'
-                this.is_submitting = false;
-            }).catch(error => {
-                console.log("Note submission error: ", error.message)
-            })
-          }
-      }
+  watch: {
+    notes_text () {
+      //   console.log(this.notes_text);
+    }
   },
-  watch:{
-      notes_text(){
-        //   console.log(this.notes_text);
-      }
-  },
-  mounted(){
-      this.notes_text = this.notes;
+  mounted () {
+    this.notes_text = this.notes
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+$blue-bg: #98cbea;
 .nes-textarea{
     height: 30vh;
 }
 .nes-container{
     margin: 3vh 0 3vh 0;
-    background-color:#98cbea;
+    background-color:$blue-bg;
 }
 .notes-text{
     background-color:white;

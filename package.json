@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "highcharts": "^7.0.3",
+    "highcharts-vue": "^1.2.0",
     "nes.css": "^2.1.0",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",
