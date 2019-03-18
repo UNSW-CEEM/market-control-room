@@ -8,7 +8,7 @@
       <hyperparameters :hyperparameters="simulation.hyperparameters"/>
 
       <simplechart v-for="(value, key) in simulation.timeseries" :timeseries="value"/>
-      <bidstack :stack="simulation.bidstack"/>
+      <bidstack :bidstacks="simulation.bidstacks"/>
     </div>
 
     <div v-else class="loading">

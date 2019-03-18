@@ -61,6 +61,10 @@ $nes-blue: #209cee;
   flex-direction:column;
   justify-content:flex-start;
   align-items:center;
+  cursor: auto;
+}
+a{
+  cursor:auto;
 }
 
 .top{

@@ -1,7 +1,12 @@
 <template>
   <div class="nes-container with-title">
     <h3 class="title">Bidstack</h3>
-    <div class="columns" v-if="stack">
+    <select v-model="selected">
+      <!-- <option disabled value="">Please select one</option> -->
+      <option v-for="(value, key) in bidstacks">{{key}}</option>
+    </select>
+    <span>Selected timestep: {{ selected }}</span>
+    <div class="columns" >
         <div class="y-axis-label">
         <span>Max</span>
 
@@ -12,8 +17,8 @@
 
         </div>
     </div>
-    <span v-if="stack">Selected Bid: {{selected_bid.meta.label}} - ${{selected_bid.price}}/MWh - {{selected_bid.volume}} MWh </span>
-    <span v-else>No Bidstack Recorded</span>
+    <span >Selected Bid: {{selected_bid.meta.label}} - ${{selected_bid.price}}/MWh - {{selected_bid.volume}} MWh </span>
+    
   </div>
 </template>
 
@@ -22,40 +27,41 @@ import ColorHash from '@hugojosefson/color-hash'
 export default {
   name: 'Bidstack',
   props: {
-    stack:Object,
+    bidstacks:Object,
   },
   data () {
     return {
+      selected:'',
       bidstack: {
         nyngan: {
           meta: {
-            label: 'nyngan'
+            label: 'Sample Bid 1'
           },
-          bands: {
-            1: {
+          bands: [
+            {
               price: 30,
               volume: 10
             },
-            2: {
+            {
               price: 2,
               volume: 5
             }
-          }
+          ]
         },
         moree: {
           meta: {
-            label: 'moree'
+            label: 'Sample Bid 2'
           },
-          bands: {
-            1: {
+          bands: [
+            {
               price: 10,
               volume: 10
             },
-            2: {
+            {
               price: 15,
               volume: 5
             }
-          }
+          ]
         }
       },
 
@@ -75,6 +81,12 @@ export default {
       },
 
       selected_filters: {}
+    }
+  },
+  watch:{
+    selected(){
+      this.bidstack = this.bidstacks[this.selected];
+      this.draw_bidstack();
     }
   },
   methods: {
@@ -142,7 +154,7 @@ export default {
         var include = true
 
         // build the sorted bidstack
-        for (var band in original_bidstack[name].bands) {
+        for (var band = 0; band < original_bidstack[name].bands.length; band ++) {
           if (original_bidstack[name].bands[band].volume > 0) {
             sorted_bidstack.push({
               'generator': name,
@@ -172,6 +184,10 @@ export default {
     }
   },
   mounted () {
+    if(this.bidstacks){
+      this.bidstack = this.bidstacks[this.selected];
+    }
+    
     this.draw_bidstack()
   }
 }
