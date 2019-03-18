@@ -2,12 +2,13 @@
   <div class="summary">
     <div v-if="simulation">
       <h1>{{simulation.label}}</h1>
-      <bidstack/>
+      
       <metadata :metadata="simulation.metadata"/>
       <Notes :notes="simulation.notes" :id="id"/>
       <hyperparameters :hyperparameters="simulation.hyperparameters"/>
-      
+
       <simplechart v-for="(value, key) in simulation.timeseries" :timeseries="value"/>
+      <bidstack :stack="simulation.bidstack"/>
     </div>
 
     <div v-else class="loading">
