@@ -44,14 +44,24 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+// @import url('https://fonts.googleapis.com/css?family=Press+Start+2P|Play');
+@import url('https://fonts.googleapis.com/css?family=Audiowide|Orbitron|Play|Press+Start+2P|Quantico');
+// @import url('https://fonts.googleapis.com/css?family=Play');
 $nes-black: #212529;
 
 $nes-blue: #209cee;
 
 #app {
-  // font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  font-family: 'Press Start 2P', Helvetica, sans-serif;
+  // font-family: 'Orbitron', sans-serif;
+  // font-family: 'Audiowide', cursive;
+  // font-family: 'Press Start 2P', Helvetica, sans-serif;
+  font-family: 'Play', Helvetica, sans-serif;
+  // font-family: 'Quantico', sans-serif;
+
+  
+
+
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

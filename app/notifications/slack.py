@@ -15,7 +15,7 @@ def send_slack_notification(label, url):
             "username": "Deep Learning Log-Bot",
             # "icon_url": "https://slack.com/img/icons/app-57.png"
             "icon_emoji": ":video_game:",
-            'text': fanfare[random.randint(0, len(fanfare) - 1)]+" - New simulation recorded in logbook! <"+url+"|"+label+">"+"\n"+cynical[random.randint(0, len(cynical) - 1)]
+            'text': fanfare[random.randint(0, len(fanfare) - 1)]+" New simulation recorded in logbook! <"+url+"|"+label+">"+"\n"+cynical[random.randint(0, len(cynical) - 1)]
         }
 
         response = requests.post(

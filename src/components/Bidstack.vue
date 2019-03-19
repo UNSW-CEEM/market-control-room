@@ -1,10 +1,10 @@
 <template>
   <div class="nes-container with-title">
     <h3 class="title">Bidstack</h3>
-    <select v-model="selected">
-      <!-- <option disabled value="">Please select one</option> -->
-      <option v-for="(value, key) in bidstacks">{{key}}</option>
-    </select>
+    
+    <div class="chart">
+      <highcharts :options="chart_options"></highcharts>
+    </div>
     <span>Selected timestep: {{ selected }}</span>
     <div class="columns" >
         <div class="y-axis-label">
@@ -14,7 +14,7 @@
 
         </div>
         <div class="column" v-for="(bid, index) in sorted_bidstack" v-on:click="select_bid(bid)" v-bind:style="{ height: get_height_percent(bid.price) + '%', width: get_width_percent(bid.volume) + '%', 'background-color':get_color(bid), transform:get_transform(bid.price)}">
-
+          {{bid.meta.label}} ${{bid.price}}
         </div>
     </div>
     <span >Selected Bid: {{selected_bid.meta.label}} - ${{selected_bid.price}}/MWh - {{selected_bid.volume}} MWh </span>
@@ -24,10 +24,13 @@
 
 <script>
 import ColorHash from '@hugojosefson/color-hash'
+import generate from 'string-to-color'
+
 export default {
   name: 'Bidstack',
   props: {
     bidstacks:Object,
+    demand:Array,
   },
   data () {
     return {
@@ -55,11 +58,13 @@ export default {
           bands: [
             {
               price: 10,
-              volume: 10
+              volume: 10,
+              
             },
             {
               price: 15,
-              volume: 5
+              volume: 5,
+              
             }
           ]
         }
@@ -83,6 +88,66 @@ export default {
       selected_filters: {}
     }
   },
+
+  computed:{
+    chart_options(){
+
+      var self = this;
+      var data = [];
+      var colorHashObj = new ColorHash()
+
+      // Add color information to each point
+      for(var i = 0; i<this.demand.length; i++){
+        var timestep = this.demand[i][0];
+        var colorHash = ''
+        if(this.bidstacks[timestep]){
+          var to_hash = '';
+          //Go through each bid, add to string - gotta do this as may in future add more data, we just want to hash price-demand.
+          //If we get some wierd multicolors in future, might want to sort these by labell, price and quantity too. But lets leave for now. 
+          for(var label in this.bidstacks[timestep]){
+            if(this.bidstacks[timestep].hasOwnProperty(label)){
+              for(var band in this.bidstacks[timestep][label].bands){
+                var band = this.bidstacks[timestep][label].bands[band]
+                to_hash += label+band.price.toString()+band.volume.toString();
+              }
+            }
+          }
+          // var colorHash = colorHashObj.hex(to_hash)
+          colorHash = generate(to_hash)
+          console.log('hash',to_hash, colorHash);
+        }
+        
+        
+        
+        data.push(
+          { color: colorHash, y: this.demand[i][1], x:timestep }
+        )
+      }
+      return {
+        title: {
+          text: 'Demand'
+        },
+        series: [{
+          name: 'Demand',
+          data: data,
+          cursor:'pointer',
+          marker:{
+            enabled:true,
+          },
+          point:{
+            
+            events:{
+              click: function(e) {
+                console.log("Clicked - selecting bid for timestep",this.x);
+                self.selected =this.x;
+              }
+            }
+          }
+        }],
+        
+      }
+    }
+  },
   watch:{
     selected(){
       this.bidstack = this.bidstacks[this.selected];
@@ -93,6 +158,7 @@ export default {
     select_bid (bid) {
       this.selected_bid = bid
     },
+    
     get_height_percent (price) {
       var max = Math.min(this.max_price, this.chart_price_cap)
       var min = Math.max(this.min_price, this.chart_price_floor)
@@ -113,18 +179,20 @@ export default {
       return 100.0 * volume / this.total_volume
     },
     get_color (bid) {
-      var colorHashObj = new ColorHash()
-      var colorHash = colorHashObj.rgb(bid.meta.label)
-      var color = ''
-      for (var i = 0; i < colorHash.length; i++) {
-        color += colorHash[i].toString(16)
-      }
+      // var colorHashObj = new ColorHash()
+      // var colorHash = colorHashObj.rgb(bid.meta.label)
+      // var color = ''
+      // for (var i = 0; i < colorHash.length; i++) {
+      //   color += colorHash[i].toString(16)
+      // }
+      var color = generate(bid.meta.label)
+      console.log('color...', color)
 
       if (bid.meta.label == this.selected_bid.meta.label) {
-        color = '000000'
+        color = '#000000'
       }
 
-      return '#' + color
+      return color
     },
 
     get_transform (price) {
@@ -140,6 +208,7 @@ export default {
       this.max_price = 0
       this.min_price = 0
       this.colors = {}
+      this.selected_bid = {meta: {}}
     },
     draw_bidstack () {
       this.reset_bidstack()
@@ -187,6 +256,7 @@ export default {
     if(this.bidstacks){
       this.bidstack = this.bidstacks[this.selected];
     }
+    this.selected = this.demand[0][0];
     
     this.draw_bidstack()
   }
@@ -265,5 +335,7 @@ export default {
     z-index: 1;
     font-size: 0.7em;
 }
+
+
 
 </style>
