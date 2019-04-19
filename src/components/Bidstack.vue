@@ -13,6 +13,7 @@
         <span>Min</span>
 
         </div>
+        <div class="demand-marker" v-bind:style="{width: get_width_percent(selected_demand) + '%'}">.</div>
         <div class="column" v-for="(bid, index) in sorted_bidstack" v-on:click="select_bid(bid)" v-bind:style="{ height: get_height_percent(bid.price) + '%', width: get_width_percent(bid.volume) + '%', 'background-color':get_color(bid), transform:get_transform(bid.price)}">
           {{bid.meta.label}} ${{bid.price}}
         </div>
@@ -35,6 +36,7 @@ export default {
   data () {
     return {
       selected:'',
+      selected_demand:0,
       bidstack: {
         nyngan: {
           meta: {
@@ -140,6 +142,8 @@ export default {
               click: function(e) {
                 console.log("Clicked - selecting bid for timestep",this.x);
                 self.selected =this.x;
+                self.selected_demand = this.y;
+                
               }
             }
           }
@@ -334,6 +338,16 @@ export default {
     align-items:flex-start;
     z-index: 1;
     font-size: 0.7em;
+}
+
+.demand-marker{
+  // background-color:green;
+  height:100%;
+  bottom:0%;
+  position:absolute;
+  border-right: 2px solid black;
+
+  // min-width:20vw;
 }
 
 
