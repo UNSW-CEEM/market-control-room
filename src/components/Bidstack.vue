@@ -324,6 +324,7 @@ export default {
     cursor: pointer;
     animation-name: grow;
     animation-duration: 1s;
+    z-index:100;
 }
 
 .y-axis-label{
@@ -346,7 +347,7 @@ export default {
   bottom:0%;
   position:absolute;
   border-right: 2px solid black;
-
+  
   // min-width:20vw;
 }
 
