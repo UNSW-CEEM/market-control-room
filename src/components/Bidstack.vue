@@ -1,7 +1,7 @@
 <template>
   <div class="nes-container with-title">
     <h3 class="title">Bidstack</h3>
-    
+
     <div class="chart">
       <highcharts :options="chart_options"></highcharts>
     </div>
@@ -19,7 +19,7 @@
         </div>
     </div>
     <span >Selected Bid: {{selected_bid.meta.label}} - ${{selected_bid.price}}/MWh - {{selected_bid.volume}} MWh </span>
-    
+
   </div>
 </template>
 
@@ -30,13 +30,13 @@ import generate from 'string-to-color'
 export default {
   name: 'Bidstack',
   props: {
-    bidstacks:Object,
-    demand:Array,
+    bidstacks: Object,
+    demand: Array
   },
   data () {
     return {
-      selected:'',
-      selected_demand:0,
+      selected: '',
+      selected_demand: 0,
       bidstack: {
         nyngan: {
           meta: {
@@ -60,13 +60,13 @@ export default {
           bands: [
             {
               price: 10,
-              volume: 10,
-              
+              volume: 10
+
             },
             {
               price: 15,
-              volume: 5,
-              
+              volume: 5
+
             }
           ]
         }
@@ -91,38 +91,35 @@ export default {
     }
   },
 
-  computed:{
-    chart_options(){
-
-      var self = this;
-      var data = [];
+  computed: {
+    chart_options () {
+      var self = this
+      var data = []
       var colorHashObj = new ColorHash()
 
       // Add color information to each point
-      for(var i = 0; i<this.demand.length; i++){
-        var timestep = this.demand[i][0];
+      for (var i = 0; i < this.demand.length; i++) {
+        var timestep = this.demand[i][0]
         var colorHash = ''
-        if(this.bidstacks[timestep]){
-          var to_hash = '';
-          //Go through each bid, add to string - gotta do this as may in future add more data, we just want to hash price-demand.
-          //If we get some wierd multicolors in future, might want to sort these by labell, price and quantity too. But lets leave for now. 
-          for(var label in this.bidstacks[timestep]){
-            if(this.bidstacks[timestep].hasOwnProperty(label)){
-              for(var band in this.bidstacks[timestep][label].bands){
+        if (this.bidstacks[timestep]) {
+          var to_hash = ''
+          // Go through each bid, add to string - gotta do this as may in future add more data, we just want to hash price-demand.
+          // If we get some wierd multicolors in future, might want to sort these by labell, price and quantity too. But lets leave for now.
+          for (var label in this.bidstacks[timestep]) {
+            if (this.bidstacks[timestep].hasOwnProperty(label)) {
+              for (var band in this.bidstacks[timestep][label].bands) {
                 var band = this.bidstacks[timestep][label].bands[band]
-                to_hash += label+band.price.toString()+band.volume.toString();
+                to_hash += label + band.price.toString() + band.volume.toString()
               }
             }
           }
           // var colorHash = colorHashObj.hex(to_hash)
           colorHash = generate(to_hash)
-          console.log('hash',to_hash, colorHash);
+          console.log('hash', to_hash, colorHash)
         }
-        
-        
-        
+
         data.push(
-          { color: colorHash, y: this.demand[i][1], x:timestep }
+          { color: colorHash, y: this.demand[i][1], x: timestep }
         )
       }
       return {
@@ -132,37 +129,36 @@ export default {
         series: [{
           name: 'Demand',
           data: data,
-          cursor:'pointer',
-          marker:{
-            enabled:true,
+          cursor: 'pointer',
+          marker: {
+            enabled: true
           },
-          point:{
-            
-            events:{
-              click: function(e) {
-                console.log("Clicked - selecting bid for timestep",this.x);
-                self.selected =this.x;
-                self.selected_demand = this.y;
-                
+          point: {
+
+            events: {
+              click: function (e) {
+                console.log('Clicked - selecting bid for timestep', this.x)
+                self.selected = this.x
+                self.selected_demand = this.y
               }
             }
           }
-        }],
-        
+        }]
+
       }
     }
   },
-  watch:{
-    selected(){
-      this.bidstack = this.bidstacks[this.selected];
-      this.draw_bidstack();
+  watch: {
+    selected () {
+      this.bidstack = this.bidstacks[this.selected]
+      this.draw_bidstack()
     }
   },
   methods: {
     select_bid (bid) {
       this.selected_bid = bid
     },
-    
+
     get_height_percent (price) {
       var max = Math.min(this.max_price, this.chart_price_cap)
       var min = Math.max(this.min_price, this.chart_price_floor)
@@ -227,7 +223,7 @@ export default {
         var include = true
 
         // build the sorted bidstack
-        for (var band = 0; band < original_bidstack[name].bands.length; band ++) {
+        for (var band = 0; band < original_bidstack[name].bands.length; band++) {
           if (original_bidstack[name].bands[band].volume > 0) {
             sorted_bidstack.push({
               'generator': name,
@@ -257,11 +253,11 @@ export default {
     }
   },
   mounted () {
-    if(this.bidstacks){
-      this.bidstack = this.bidstacks[this.selected];
+    if (this.bidstacks) {
+      this.bidstack = this.bidstacks[this.selected]
     }
-    this.selected = this.demand[0][0];
-    
+    this.selected = this.demand[0][0]
+
     this.draw_bidstack()
   }
 }
@@ -347,10 +343,8 @@ export default {
   bottom:0%;
   position:absolute;
   border-right: 2px solid black;
-  
+
   // min-width:20vw;
 }
-
-
 
 </style>

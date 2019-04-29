@@ -1,8 +1,9 @@
 <template>
   <div class="summary">
     <div v-if="simulation">
-      <h1>{{simulation.label}}</h1>
-      
+       
+      <editableheader :label="simulation.label" :id="id"/>
+      <archiving :id="id" :archived="simulation.archived"/>
       <metadata :metadata="simulation.metadata"/>
       <Notes :notes="simulation.notes" :id="id"/>
       <hyperparameters :hyperparameters="simulation.hyperparameters"/>
@@ -22,12 +23,14 @@
 // @ is an alias to /src
 
 import Hyperparameters from '@/components/Hyperparameters.vue'
+import Archiving from '@/components/Archiving.vue'
 import Metadata from '@/components/Metadata.vue'
 import Notes from '@/components/Notes.vue'
 
 import Bidstack from '@/components/Bidstack.vue'
 
 import Simplechart from '@/components/Simplechart.vue'
+import Editableheader from '@/components/Editableheader.vue'
 
 import $backend from '../backend'
 
@@ -38,7 +41,7 @@ export default {
   },
   data () {
     return {
-      simulation: null
+      simulation: null,
     }
   },
   components: {
@@ -46,7 +49,9 @@ export default {
     Metadata,
     Notes,
     Simplechart,
-    Bidstack
+    Bidstack,
+    Editableheader,
+    Archiving,
   },
   methods: {
     refresh () {

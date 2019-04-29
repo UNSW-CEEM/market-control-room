@@ -20,7 +20,26 @@ class SecureResource(Resource):
     """ Calls require_auth decorator on all requests """
     method_decorators = [require_auth]
 
+
+# Retrieves all unarchived simulations.
 @api_rest.route('/simdata/list')
+class SimData(Resource):
+    """ Unsecure Resource Class: Inherit from Resource """
+
+    def get(self):
+        req = Simulation.objects()
+        sims = []
+        for s in req:
+            if 'archived' not in s['data']:
+                sims.append({'label':s.label, 'id':str(s.id)})
+            else:
+                if s['data']['archived'] == False:
+                    sims.append({'label':s.label, 'id':str(s.id)})
+
+        return jsonify(sims)
+
+# Retrieves all simulations (archived and unarchived.)
+@api_rest.route('/simdata/list/all')
 class SimData(Resource):
     """ Unsecure Resource Class: Inherit from Resource """
 
@@ -48,6 +67,33 @@ class SimDataNotes(Resource):
         json_payload = request.data
         data = json.loads(request.data)
         save_notes(data['notes'], resource_id)
+        return jsonify({'success':True})
+
+@api_rest.route('/simdata/<string:resource_id>/label')
+class SimLabel(Resource):
+    """ Unsecure Resource Class: Inherit from Resource """
+
+    def post(self, resource_id):
+        
+        json_payload = request.data
+        data = json.loads(request.data)
+        save_label(data['label'], resource_id)
+        return jsonify({'success':True})
+
+@api_rest.route('/simdata/<string:resource_id>/archive')
+class SimArchive(Resource):
+    """ Unsecure Resource Class: Inherit from Resource """
+
+    def post(self, resource_id):
+        archive( resource_id)
+        return jsonify({'success':True})
+
+@api_rest.route('/simdata/<string:resource_id>/unarchive')
+class SimUnArchive(Resource):
+    """ Unsecure Resource Class: Inherit from Resource """
+
+    def post(self, resource_id):
+        unarchive( resource_id)
         return jsonify({'success':True})
 
 @api_rest.route('/simdata')
@@ -82,6 +128,29 @@ def save_notes(notes, sim_id):
         send_notes_slack_notification(req['label'], "https://deeplearninglog.herokuapp.com/#/summary/"+str(req.id), notes, updated)
         
         print("Simulation Saved")
+
+def save_label(label, sim_id):
+        req = Simulation.objects.get(id=sim_id) 
+        req.data['label'] = label
+        Simulation.objects(id=sim_id).update_one(data=req.data, label=label)
+
+        print("Label Updated")
+
+def archive(sim_id):
+        req = Simulation.objects.get(id=sim_id) 
+        req.data['archived'] = True
+        Simulation.objects(id=sim_id).update_one(data=req.data)
+
+        print("Archived", sim_id)
+
+def unarchive(sim_id):
+        req = Simulation.objects.get(id=sim_id) 
+        req.data['archived'] = False
+        Simulation.objects(id=sim_id).update_one(data=req.data)
+
+        print("Un-Archived", sim_id)
+
+
 
 
 

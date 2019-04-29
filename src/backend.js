@@ -44,5 +44,18 @@ export default {
   postNotes(sim_id, notes){
     return $axios.post(`simdata/`+sim_id+"/notes", {'notes':notes})
       .then(response => response.data)
-  }
+  },
+  postLabel(sim_id, label){
+    return $axios.post(`simdata/`+sim_id+"/label", {'label':label})
+      .then(response => response.data)
+  },
+  archive(sim_id, label){
+    return $axios.post(`simdata/`+sim_id+"/archive", {})
+      .then(response => response.data)
+  },
+  archive(sim_id, label){
+    return $axios.post(`simdata/`+sim_id+"/unarchive", {})
+      .then(response => response.data)
+  },
+  
 }
