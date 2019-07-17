@@ -22,30 +22,30 @@ class SecureResource(Resource):
 
 
 # Retrieves all unarchived simulations.
+# @api_rest.route('/simdata/list')
+# class SimData(Resource):
+#     """ Unsecure Resource Class: Inherit from Resource """
+
+#     def get(self):
+#         req = Simulation.objects().fields(label=1)
+#         sims = []
+#         for s in req:
+#             if 'archived' not in s['data']:
+#                 sims.append({'label':s.label, 'id':str(s.id)})
+#             else:
+#                 if s['data']['archived'] == False:
+#                     sims.append({'label':s.label, 'id':str(s.id)})
+
+#         return jsonify(sims)
+
+# Retrieves all simulations (archived and unarchived.)
 @api_rest.route('/simdata/list')
 class SimData(Resource):
     """ Unsecure Resource Class: Inherit from Resource """
 
     def get(self):
-        req = Simulation.objects()
-        sims = []
-        for s in req:
-            if 'archived' not in s['data']:
-                sims.append({'label':s.label, 'id':str(s.id)})
-            else:
-                if s['data']['archived'] == False:
-                    sims.append({'label':s.label, 'id':str(s.id)})
-
-        return jsonify(sims)
-
-# Retrieves all simulations (archived and unarchived.)
-@api_rest.route('/simdata/list/all')
-class SimData(Resource):
-    """ Unsecure Resource Class: Inherit from Resource """
-
-    def get(self):
-        req = Simulation.objects()
-        sims = [{'label':s.label, 'id':str(s.id)} for s in req]
+        req = Simulation.objects().fields(label=1, id=1, archived=1)
+        sims = [{'label':s.label, 'archived':s.archived, 'id':str(s.id)} for s in req]
         return jsonify(sims)
         
 @api_rest.route('/simdata/<string:resource_id>')
@@ -137,17 +137,16 @@ def save_label(label, sim_id):
         print("Label Updated")
 
 def archive(sim_id):
-        req = Simulation.objects.get(id=sim_id) 
-        req.data['archived'] = True
-        Simulation.objects(id=sim_id).update_one(data=req.data)
-
+        # req = Simulation.objects.get(id=sim_id) 
+        # req.data['archived'] = True
+        Simulation.objects(id=sim_id).update_one(archived=True)
         print("Archived", sim_id)
 
 def unarchive(sim_id):
-        req = Simulation.objects.get(id=sim_id) 
-        req.data['archived'] = False
-        Simulation.objects(id=sim_id).update_one(data=req.data)
-
+        # req = Simulation.objects.get(id=sim_id) 
+        # req.update(archived=archived)
+        # req.data['archived'] = False
+        Simulation.objects(id=sim_id).update_one(archived=False)
         print("Un-Archived", sim_id)
 
 

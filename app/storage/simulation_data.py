@@ -12,3 +12,4 @@ class Simulation(Document):
     label = StringField(indexed=True)
     date = DateField()
     data = DictField()
+    archived = BooleanField(required=False)

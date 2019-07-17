@@ -9,3 +9,7 @@ New simulations can be logged by posting JSON data to /api/simdata.
 Currently Expected keys:
 - label
 - hyperparameters
+
+## Notes
+Make demand discrete in a tiny range
+Then show each participant their opponents moves last time demand was at that level. 
