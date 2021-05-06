@@ -11,7 +11,7 @@
   "dependencies": {
     "@hugojosefson/color-hash": "^2.0.3",
     "axios": "^0.18.0",
-    "highcharts": "^7.0.3",
+    "highcharts": "^9.0.0",
     "highcharts-vue": "^1.2.0",
     "nes.css": "^2.1.0",
     "string-to-color": "^2.0.1",
